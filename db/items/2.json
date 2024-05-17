@@ -1,0 +1,13 @@
+{
+    "item_id": "2",
+    "posted_by": "user456",
+    "claimed_by": null,
+    "title": "Fresh Baked Bread",
+    "description": "A loaf of freshly baked whole grain bread.",
+    "category": "Bakery",
+    "quantity": 1,
+    "location": "456 Elm St, Springfield",
+    "contact": "user456@example.com",
+    "expiry_date": "2024-05-20",
+    "image": "fresh_baked_bread.jpg"
+}

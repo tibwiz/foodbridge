@@ -1,0 +1,13 @@
+{
+    "item_id": "1",
+    "posted_by": "joe",
+    "claimed_by": null,
+    "title": "Canned Beans",
+    "description": "A pack of 12 canned beans.",
+    "category": "Canned Food",
+    "quantity": 12,
+    "location": "123 Main St, Springfield",
+    "contact": "user123@example.com",
+    "expiry_date": "2025-12-31",
+    "image": "canned_beans.jpg"
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Connect</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Food Bridge</h1>
+            <p>A platform to connect restaurants and individuals to donate food for the needy.</p>
+        </header>
+        <main>
+            <img src="{{ url_for('static', filename='images/index1.png') }}" alt="Food Donation Image">
+            <div class="options">
+                <a href="{{ url_for('main.register') }}" class="btn">Register</a>
+                <a href="{{ url_for('main.login') }}" class="btn">Login</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

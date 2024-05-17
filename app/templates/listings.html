@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Listings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Food Bridge</h1>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Donation Listings</h2>
+            <div class="donation-items">
+                <table class="donation-table">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Location</th>
+                        <th>Expiry Date</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for item in donation_items %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.location }}</td>
+                        <td>{{ item.expiry_date }}</td>
+                        <td>
+                            {% if user_name == item.posted_by %}
+                                <a href="{{ url_for('main.delete_donation', item_id=item.id) }}">Delete</a>
+                            {% elif user_category == 'Needy' %}
+                                {% if not item.claimed_by %}
+                                    <a href="{{ url_for('main.claim_donation', item_id=item.id) }}">Claim</a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
