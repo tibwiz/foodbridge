@@ -56,6 +56,9 @@ class DonationItem:
         self.image = image
         self.claimed_by = claimed_by
 
+
+
+
     def to_json(self):
         return {
             'item_id': self.item_id,
@@ -70,6 +73,12 @@ class DonationItem:
             'expiry_date': self.expiry_date,
             'image': self.image
         }
+
+    def __repr__(self):
+        return f"Item ID: {self.item_id}, Title: {self.title}, Category: {self.category}, Quantity: {self.quantity}, Location: {self.location}, Contact: {self.contact}, Expiry Date: {self.expiry_date}, Image: {self.image}, Posted By: {self.posted_by}, Claimed By: {self.claimed_by}"
+
+    def __str__(self):
+        return f"Item ID: {self.item_id}, Title: {self.title}, Category: {self.category}, Quantity: {self.quantity}, Location: {self.location}, Contact: {self.contact}, Expiry Date: {self.expiry_date}, Image: {self.image}, Posted By: {self.posted_by}, Claimed By: {self.claimed_by}"
 
     @classmethod
     def from_json(cls, json_data):

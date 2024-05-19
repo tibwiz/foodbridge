@@ -117,10 +117,11 @@ def claim_donation():
     item = DonationItem.load(item_id)
 
     # Update the claimed_by field of the donation item
-    item.claimed_by = session.get('user_category')
+    item.claimed_by = session.get('username')
 
     # Save the updated donation item
     item.save()
+    print("session.get('username')", session.get('username'))
 
     flash('Donation claimed successfully!', 'success')
     return redirect(url_for('main.listings'))

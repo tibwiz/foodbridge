@@ -14,10 +14,10 @@
         <div class="container">
             <h2>Donation Listings</h2>
             {% if user_category == 'Donor' %}
+            {% endif %}
                 <div class="action-buttons">
                     <a href="{{ url_for('main.create_donation') }}" class="btn">Create Donation</a>
                 </div>
-            {% endif %}
             <div class="donation-items">
                 <table class="donation-table">
                     <tr>
@@ -38,13 +38,21 @@
                         <td>{{ item.location }}</td>
                         <td>{{ item.expiry_date }}</td>
                         <td>
-                            {% if user_name == item.posted_by %}
-                                <a href="{{ url_for('main.delete_donation', item_id=item.id) }}">Delete</a>
+                            {% if username == item.posted_by %}
+                                <a href="{{ url_for('main.delete_donation', item_id=item.item_id) }}">Delete</a>
                             {% elif user_category == 'Needy' %}
-                                {% if not item.claimed_by %}
-                                    <a href="{{ url_for('main.claim_donation', item_id=item.id) }}">Claim</a>
-                                {% endif %}
                             {% endif %}
+                                {% if not item.claimed_by %}
+                                    <form method="POST" action="{{ url_for('main.claim_donation') }}">
+                                        <input type="hidden" name="item_id" value="{{ item.item_id }}">
+                                        <input type="submit" value="Claim">
+                                    </form>
+                                {% elif item.claimed_by == username %}
+                                    <form method="POST" action="{{ url_for('main.unclaim_donation') }}">
+                                        <input type="hidden" name="item_id" value="{{ item.item_id }}">
+                                        <input type="submit" value="Unclaim">
+                                    </form>
+                                {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
