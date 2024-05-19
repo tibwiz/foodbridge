@@ -102,3 +102,11 @@ class DonationItem:
                 data = json.load(file)
                 items.append(cls.from_json(data))
         return items
+
+    @staticmethod
+    def get_next_id():
+        item_files = os.listdir('db/items/')
+        if not item_files:
+            return 1
+        item_ids = [int(file.split('.')[0]) for file in item_files]
+        return max(item_ids) + 1

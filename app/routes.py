@@ -2,16 +2,13 @@
 from datetime import datetime
 
 from flask import render_template, url_for, flash, redirect, request, Blueprint, session
-from app import db, mail
-from app.forms import RegistrationForm, LoginForm
-from app.models import User
-from flask_mail import Message
+from app.forms import RegistrationForm, LoginForm,CreateDonationForm
 from app.models import DonationItem
-
+import json
+from werkzeug.utils import secure_filename
+import os
 # Create a Blueprint for routes
 bp = Blueprint('main', __name__)
-
-
 @bp.route('/')
 def index():
     return render_template('index.html')
@@ -72,6 +69,44 @@ def delete_donation():
     return redirect(url_for('main.listings'))
 
 
+#create_donation
+@bp.route('/create_donation', methods=['GET', 'POST'])
+def create_donation():
+    form = CreateDonationForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        category = form.category.data
+        quantity = form.quantity.data
+        location = form.location.data
+        contact = form.contact.data
+        expiry_date = form.expiry_date.data
+        image = form.image.data
+
+
+        new_id = DonationItem.get_next_id()
+        posted_by = 'current_user'  # Replace with actual logic to get the current user's name
+        donation_item = DonationItem(
+            item_id=new_id,
+            posted_by=posted_by,
+            claimed_by=None,
+            title=title,
+            description=description,
+            category=category,
+            quantity=quantity,
+            location=location,
+            contact=contact,
+            expiry_date="",
+            image="filename"
+        )
+
+        with open(f'db/items/{new_id}.json', 'w') as f:
+            json.dump(donation_item.to_json(), f)
+
+        flash('Donation item created successfully!', 'success')
+        return redirect(url_for('main.listings'))
+
+    return render_template('create_donation.html', form=form)
 # claim donation
 @bp.route('/claim_donation', methods=['POST'])
 def claim_donation():

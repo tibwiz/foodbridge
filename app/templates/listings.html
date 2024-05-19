@@ -13,6 +13,11 @@
     <main>
         <div class="container">
             <h2>Donation Listings</h2>
+            {% if user_category == 'Donor' %}
+                <div class="action-buttons">
+                    <a href="{{ url_for('main.create_donation') }}" class="btn">Create Donation</a>
+                </div>
+            {% endif %}
             <div class="donation-items">
                 <table class="donation-table">
                     <tr>
